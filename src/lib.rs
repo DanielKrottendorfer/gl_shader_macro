@@ -80,6 +80,7 @@ pub fn shader_program(_item: proc_macro::TokenStream) -> proc_macro::TokenStream
         }
     };
 
+    #[cfg(feature = "print_output")]
     println!("{}",output.to_string());
 
     proc_macro::TokenStream::from(output)
