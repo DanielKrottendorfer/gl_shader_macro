@@ -76,6 +76,11 @@ pub fn shader_program(_item: proc_macro::TokenStream) -> proc_macro::TokenStream
                 self.program_id = program.clone();
                 #uniform_setup
             }
+            pub fn cleanup(&self){
+                unsafe {
+                    gl::DeleteProgram(self.program_id);
+                }
+            }
             #set_uniform_functions
         }
     };
