@@ -55,7 +55,7 @@ pub fn shader_program(_item: proc_macro::TokenStream) -> proc_macro::TokenStream
     }
 
     let output = quote! {
-        #[derive(Debug)]
+        #[derive(Debug,Default)]
         pub struct #struct_ident{
             pub program_id :u32,
             #(pub #field_idents :i32,)*
