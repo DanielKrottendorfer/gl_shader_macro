@@ -29,12 +29,13 @@ pub fn i1_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Iden
 pub fn i1v_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Ident) -> proc_macro2::TokenStream {
 
     quote!{
-        pub fn #function_name(&self,#uniform_name : i32){
+        pub fn #function_name(&self,#uniform_name : &[i32]){
             
             unsafe {
-                gl::Uniform1i(
+                gl::Uniform1iv(
                     self.#field_ident,
-                    #uniform_name
+                    #uniform_name.len() as i32,
+                    #uniform_name.as_ptr() 
                 );
             }
         }

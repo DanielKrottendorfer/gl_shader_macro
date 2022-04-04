@@ -21,25 +21,21 @@ pub fn shader_program(_item: proc_macro::TokenStream) -> proc_macro::TokenStream
     let mut set_uniform_functions = proc_macro2::TokenStream::new();
 
     for s in uniforms.to_string().split(';') {
-        let mut comp = s.trim().split(' ');
+        let mut comp = s.trim().split(&[' ','\n']);
         if let Some(c) = comp.next() {
+            let c = c.trim();
             if c.starts_with("uniform") {
                 let uniform_type = comp.next().unwrap();
                 let uniform_name = comp.next().unwrap();
-                let array = comp.next();
-                
-                if array == Some(s) {
-                    panic!("array is not handled!");
-                }
                 
                 let field_ident = quote::format_ident!("{}",uniform_name);
                 uniform_setup.extend(setup_uniform(&field_ident,uniform_name));
                 
                 let set_uniform_function_name = quote::format_ident!("set_{}",field_ident);
-                let set_uniform_function = match uniform_type {
+                let set_uniform_function = match uniform_type.trim() {
                     "float" => f1_setter     (&set_uniform_function_name, &field_ident, &field_ident),
                     "int"   => i1_setter     (&set_uniform_function_name, &field_ident, &field_ident),
-                    //"i1v"   => i1v_setter    (&set_uniform_function_name, &field_ident, &field_ident),
+                    "i1v"   => i1v_setter    (&set_uniform_function_name, &field_ident, &field_ident),
                     "vec3"  => vec3_setter   (&set_uniform_function_name, &field_ident, &field_ident),
                     "vec4"  => vec4_setter   (&set_uniform_function_name, &field_ident, &field_ident),
                     "mat4"  => mat4_setter   (&set_uniform_function_name, &field_ident, &field_ident),
