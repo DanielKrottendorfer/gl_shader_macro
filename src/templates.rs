@@ -73,6 +73,21 @@ pub fn f1_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Iden
     }
 }
 
+pub fn vec2_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Ident) -> proc_macro2::TokenStream {
+
+    quote!{
+        pub fn #function_name(&self,#uniform_name : Vector2<f32>){
+            
+            unsafe {
+                gl::Uniform2fv(
+                    self.#field_ident,
+                    1,
+                    cgmath::conv::array2(#uniform_name).as_ptr() as *const f32
+                );
+            }
+        }
+    }
+}
 
 pub fn vec3_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Ident) -> proc_macro2::TokenStream {
 

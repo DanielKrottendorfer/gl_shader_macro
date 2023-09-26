@@ -36,6 +36,7 @@ pub fn shader_program(_item: proc_macro::TokenStream) -> proc_macro::TokenStream
                     "float" => f1_setter     (&set_uniform_function_name, &field_ident, &field_ident),
                     "int"   => i1_setter     (&set_uniform_function_name, &field_ident, &field_ident),
                     "i1v"   => i1v_setter    (&set_uniform_function_name, &field_ident, &field_ident),
+                    "vec2"  => vec2_setter   (&set_uniform_function_name, &field_ident, &field_ident),
                     "vec3"  => vec3_setter   (&set_uniform_function_name, &field_ident, &field_ident),
                     "vec4"  => vec4_setter   (&set_uniform_function_name, &field_ident, &field_ident),
                     "mat4"  => mat4_setter   (&set_uniform_function_name, &field_ident, &field_ident),
