@@ -13,7 +13,7 @@ shader_program!(
     }
 );
 
-let program:u32 = ...
+let program:u32 = ... ;
 
 let mut color_3d_light = Color3DLight::new();
 color_3d_light.setup(&program);
