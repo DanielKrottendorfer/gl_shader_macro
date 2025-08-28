@@ -89,16 +89,15 @@ pub fn vec2_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Id
     }
 }
 
-pub fn vec3_setter<T>(function_name: &Ident, field_ident: &Ident, uniform_name: &Ident) -> proc_macro2::TokenStream {
-
+pub fn vec3_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Ident,vec_type: syn::Type) -> proc_macro2::TokenStream {
     quote!{
-        pub fn #function_name(&self,#uniform_name : Vector3<T>){
+        pub fn #function_name(&self,#uniform_name : Vector3<#vec_type>){
             
             unsafe {
                 gl::Uniform3fv(
                     self.#field_ident,
                     1,
-                    cgmath::conv::array3(#uniform_name).as_ptr() as *const T
+                    cgmath::conv::array3(#uniform_name).as_ptr() as *const #vec_type
                 );
             }
         }

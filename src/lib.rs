@@ -5,6 +5,7 @@ use quote::{quote};
 use proc_macro2::{TokenTree::*};
 #[allow(dead_code)]
 mod templates;
+use syn::parse_quote;
 use templates::*;
 
 #[proc_macro]
@@ -37,8 +38,8 @@ pub fn shader_program(_item: proc_macro::TokenStream) -> proc_macro::TokenStream
                     "int"   => i1_setter     (&set_uniform_function_name, &field_ident, &field_ident),
                     "i1v"   => i1v_setter    (&set_uniform_function_name, &field_ident, &field_ident),
                     "vec2"  => vec2_setter   (&set_uniform_function_name, &field_ident, &field_ident),
-                    "vec3"  => vec3_setter::<f32>   (&set_uniform_function_name, &field_ident, &field_ident),
-                    "ivec3"  => vec3_setter::<i32>   (&set_uniform_function_name, &field_ident, &field_ident),
+                    "vec3"  => vec3_setter   (&set_uniform_function_name, &field_ident, &field_ident,parse_quote!(f32)),
+                    "ivec3"  => vec3_setter  (&set_uniform_function_name, &field_ident, &field_ident,parse_quote!(i32)),
                     "vec4"  => vec4_setter   (&set_uniform_function_name, &field_ident, &field_ident),
                     "mat4"  => mat4_setter   (&set_uniform_function_name, &field_ident, &field_ident),
                     _ => {
