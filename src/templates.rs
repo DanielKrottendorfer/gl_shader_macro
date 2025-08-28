@@ -97,7 +97,7 @@ pub fn vec3_setter(function_name: &Ident, field_ident: &Ident, uniform_name: &Id
                 gl::Uniform3fv(
                     self.#field_ident,
                     1,
-                    cgmath::conv::array3(#uniform_name).as_ptr() as *const #vec_type
+                    cgmath::conv::array3(#uniform_name).as_ptr() as *const f32
                 );
             }
         }
